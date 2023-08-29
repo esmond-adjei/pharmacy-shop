@@ -1,7 +1,7 @@
 from datetime import date
 
 from sqlalchemy.orm import mapped_column, Mapped
-from sqlalchemy import Integer, String, Date, Boolean
+from sqlalchemy import Integer, String, Date
 
 from pharmacy.database.core import Base
 

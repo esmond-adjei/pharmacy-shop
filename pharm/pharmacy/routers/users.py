@@ -1,9 +1,9 @@
 from fastapi import APIRouter, status
 from fastapi import HTTPException
-import sqlalchemy.exc
+import sqlalchemy.exc as exc
 
-from pharmacy.database.models.users import User
 from pharmacy.database.core import SessionMaker
+from pharmacy.database.models.users import User
 from pharmacy.schema.users import UserCreate, UserSchema
 
 
