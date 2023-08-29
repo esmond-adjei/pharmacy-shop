@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "pharmacy-shop"
+version = "0.1.0"
+description = "Pharmacy shop"
+authors = ["Esmond Adjei <xmongram@gmail.com>"]
+
+[tool.poetery.dependencies]
+python = "^3.10"
+fastapi = "^0.103.0"
+uvicorn = "^0.15.0"
+
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"
