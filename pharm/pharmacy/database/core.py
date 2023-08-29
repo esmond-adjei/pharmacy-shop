@@ -6,7 +6,7 @@ engine = create_engine(
     echo=True,
     connect_args={"check_same_thread": False}
 )
-Sessionmaker = sessionmaker(
+SessionMaker = sessionmaker(
     bind=engine,
     autocommit=False,
     autoflush=False,

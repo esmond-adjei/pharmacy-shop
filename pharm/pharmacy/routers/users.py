@@ -2,7 +2,7 @@ from fastapi import APIRouter, status
 from fastapi import HTTPException
 import sqlalchemy.exc
 
-from pharamcy.database.models.users import User
+from pharmacy.database.models.users import User
 from pharmacy.database.core import SessionMaker
 from pharmacy.schema.users import UserCreate, UserSchema
 

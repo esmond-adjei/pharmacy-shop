@@ -1,11 +1,12 @@
-from pydantic import BaseModel
 from datetime import date
+
+from pydantic import BaseModel, EmailStr
 
 
 class UserBase(BaseModel):
     username: str
     address: str | None
-    email: str | None
+    email: EmailStr | None
     date_of_birth: date | None
 
 
@@ -15,6 +16,3 @@ class UserCreate(UserBase):
 
 class UserSchema(UserBase):
     id: int
-
-    class Config:
-        orm_mode = True
