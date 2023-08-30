@@ -1,10 +1,12 @@
-from typing import Annotated
+from typing import Annotated, Type
 
 from fastapi import status, Depends
 from fastapi.exceptions import HTTPException
 from sqlalchemy.orm import Session
 
 from pharmacy.database.core import SessionMaker
+from pharmacy.database.models.admins import Admin
+from pharmacy.database.models.inventories import Inventory
 from pharmacy.database.models.users import User
 
 
@@ -13,7 +15,7 @@ def database_connection():
         yield db_connection
 
 
-Database = Annotated[Session, Depends(database_connection)]
+Database: Type[Session] = Annotated[Session, Depends(database_connection)]
 
 
 def get_user_or_404(db: Database, user_id: int) -> User:
@@ -28,4 +30,30 @@ def get_user_or_404(db: Database, user_id: int) -> User:
     return user
 
 
+def get_admin_or_404(db: Database, admin_id: int) -> Admin:
+    admin: Admin | None = db.get(Admin, admin_id)
+
+    if admin is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    return admin
+
+
+def get_inventory_or_404(db: Database, inventory_id: int) -> Inventory:
+    inventory: Inventory | None = db.get(Inventory, inventory_id)
+
+    if inventory is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Inventory Item not found"
+        )
+
+    return inventory
+
+
 AnnotatedUser = Annotated[User, Depends(get_user_or_404)]
+AnnotatedAdmin = Annotated[Admin, Depends(get_admin_or_404)]
+AnnotatedInventory = Annotated[Inventory, Depends(get_inventory_or_404)]

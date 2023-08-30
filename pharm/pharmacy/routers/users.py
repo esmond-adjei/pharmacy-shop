@@ -1,3 +1,5 @@
+from typing import Sequence
+
 from fastapi import APIRouter, status
 from fastapi import HTTPException
 from sqlalchemy import exc, select
@@ -28,7 +30,7 @@ def create_user(user_data: UserCreate, db: Database) -> User:
 
 
 @router.get("/users", response_model=list[UserSchema])
-def get_list_of_users(db: Database) -> list[User]:
+def get_list_of_users(db: Database) -> Sequence[User]:
     return db.scalars(select(User)).all()
 
 
