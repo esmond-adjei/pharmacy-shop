@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 from fastapi import HTTPException
-import sqlalchemy.exc as exc
+from sqlalchemy import exc, select
 
 from pharmacy.database.core import SessionMaker
 from pharmacy.database.models.users import User
@@ -33,3 +33,22 @@ def create_user(user_data: UserCreate):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Username or email already exists"
             )
+
+
+@router.get("/users/", response_model=list[UserSchema])
+def get_list_of_users() -> list[User]:
+    with SessionMaker() as db:
+        return db.scalars(select(User)).all()
+
+
+@router.get("/users/{user_id}", response_model=UserSchema)
+def get_user(user_id: int) -> User:
+    with SessionMaker() as db:
+        user: User | None = db.get(User, user_id)
+
+        if user is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        return user
