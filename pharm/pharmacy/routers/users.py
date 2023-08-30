@@ -5,6 +5,7 @@ from sqlalchemy import exc, select
 from pharmacy.database.core import SessionMaker
 from pharmacy.database.models.users import User
 from pharmacy.schema.users import UserCreate, UserSchema
+from pharmacy.dependencies.database import get_user_or_404, database_connection
 
 
 router = APIRouter()
@@ -52,3 +53,17 @@ def get_user(user_id: int) -> User:
                 detail="User not found"
             )
         return user
+
+
+@router.delete("/users/{user_id}")
+def delete_user(user_id: int) -> None:
+    with SessionMaker() as db:
+        user: User | None = db.get(User, user_id)
+
+        if user is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        db.delete(user)
+        db.commit()

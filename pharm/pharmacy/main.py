@@ -9,7 +9,7 @@ from pharmacy.routers.users import router
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     with SessionMaker() as session:
-        Base.metadata.drop_all(bind=engine)
+        # Base.metadata.drop_all(bind=engine)
         Base.metadata.create_all(bind=engine)
     yield
 
