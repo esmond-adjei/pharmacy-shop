@@ -4,11 +4,12 @@ version = "0.1.0"
 description = "Pharmacy shop"
 authors = ["Esmond Adjei <xmongram@gmail.com>"]
 
-[tool.poetery.dependencies]
+[tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.103.0"
-uvicorn = "^0.15.0"
+uvicorn = "^0.23.0"
 sqlalchemy = "^2.0.20"
+pydantic = "^2.3.0"
+fastapi = "^0.103.0"
 
 [build-system]
 requires = ["poetry-core>=1.2.0"]

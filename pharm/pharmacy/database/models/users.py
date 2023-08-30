@@ -13,7 +13,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     address: Mapped[str | None] = mapped_column(String)
     email: Mapped[str | None] = mapped_column(String, unique=True)
-    date_or_birth: Mapped[date | None] = mapped_column(Date)
+    date_of_birth: Mapped[date | None] = mapped_column(Date)
     password: Mapped[str] = mapped_column(String, nullable=False)
 
     def __repr__(self):

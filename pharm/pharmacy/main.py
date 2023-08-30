@@ -18,6 +18,11 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(router)
 
 
+@app.get("/")
+def welcome():
+    return {"message": "Welcome to largest online pharmacy shop"}
+
+
 @app.get("/ping")
 def ping_pong() -> dict[str, str]:
     return {"message": "pong... hello there!"}
