@@ -2,7 +2,6 @@ from fastapi import APIRouter, status
 from fastapi import HTTPException
 from sqlalchemy import exc, select
 
-from pharmacy.database.core import SessionMaker
 from pharmacy.database.models.users import User
 from pharmacy.schema.users import UserCreate, UserSchema
 from pharmacy.dependencies.database import AnnotatedUser, Database
@@ -11,7 +10,7 @@ from pharmacy.dependencies.database import AnnotatedUser, Database
 router = APIRouter()
 
 
-@router.post("/users/", response_model=UserSchema)
+@router.post("/users", response_model=UserSchema)
 def create_user(user_data: UserCreate, db: Database) -> User:
     user = User(**user_data.model_dump())
     try:
@@ -28,7 +27,7 @@ def create_user(user_data: UserCreate, db: Database) -> User:
         )
 
 
-@router.get("/users/", response_model=list[UserSchema])
+@router.get("/users", response_model=list[UserSchema])
 def get_list_of_users(db: Database) -> list[User]:
     return db.scalars(select(User)).all()
 
